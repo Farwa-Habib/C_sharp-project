@@ -3,6 +3,7 @@ using LabManagement.LabTechnician.Services;
 using LabManagement.Bill.UI;
 using LabManagement.Patient;
 using LabManagement.Patient.UI;
+using LabManagement.LabTech.UI;
 using LabManagement.Test;
 using System;
 using System.Collections.Generic;
@@ -107,13 +108,17 @@ namespace LabManagement.LabTech.UI
                 Console.WriteLine("===== TECHNICIAN DASHBOARD =====");
                 Console.WriteLine("1. Register Patient");
                 Console.WriteLine("2. View All Patients");
-                Console.WriteLine("3. Search Patient");
+                Console.WriteLine("3. Search Patient by ID");
                 Console.WriteLine("4. Update Patient");
                 Console.WriteLine("5. Delete Patient");
                 Console.WriteLine("6. Test Management");
                 Console.WriteLine("7. View Patient Complete Record");
                 Console.WriteLine("8. Generate Patient Bill");
-                Console.WriteLine("9.Logout");
+                Console.WriteLine("9.Search Patient by name ");
+                Console.WriteLine("10.Search Patient by category ");
+                Console.WriteLine("11.get maximum age and minimum age ");
+
+                Console.WriteLine("12. LogOut");
 
                 Console.Write("Enter option: ");
                 int choice = int.Parse(Console.ReadLine());
@@ -155,17 +160,30 @@ namespace LabManagement.LabTech.UI
                 }
                 else if (choice == 9)
                 {
+                    GetPatientByName();
+
+                }
+                else if (choice==10)
+                {
+                    Searchbycategory();
+                }
+                else if (choice == 11)
+                {
+
+                }
+                else if (choice == 12)
+                {
                     break;
                 }
                 else
                 {
                     Console.WriteLine("Invalid option!");
-
-                    Console.WriteLine("\nPress any key to continue...");
+                    Console.WriteLine(" Press any key to continue");
                     Console.ReadKey();
                 }
             }
         }
+   
         public void ViewAllPatients()
         {
             List<PatientModel> patients = service.GetAllPatients();
@@ -310,20 +328,21 @@ namespace LabManagement.LabTech.UI
 
                 Console.WriteLine("===== TEST DETAILS =====");
 
-                if (tests.Count == 0)
+            if (tests.Count == 0)
+            {
+                Console.WriteLine("No tests registered!");
+            }
+            else
+            {
+                foreach (TestModel test in tests)
                 {
-                    Console.WriteLine("No tests registered!");
+                    Console.WriteLine(test.ToString());
+                    Console.WriteLine("----------------------");
                 }
-                else
-                {
-                    foreach (TestModel test in tests)
-                    {
-                        Console.WriteLine(test.ToString());
-                        Console.WriteLine("----------------------");
-                    }
+            }
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
-            }
+            
 
                 decimal total = service.CalculatePatientTotal(id);
 

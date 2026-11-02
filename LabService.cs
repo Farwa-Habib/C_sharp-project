@@ -59,6 +59,10 @@ namespace LabManagement.LabTechnician.Services
         {
             return patientService.GetPatientById(patient_id);
         }
+        public PatientModel GetPatientByName(string name)
+        {
+            return patientService.GetPatientByName(name);
+        }
 
         public List<TestModel> GetPatientTests(int patient_id)
         {

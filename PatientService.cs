@@ -1,7 +1,9 @@
 ﻿using LabManagement.Patient.Repo;
+using LabManagement.Patient.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -95,6 +97,60 @@ namespace LabManagement.Patient.Services
             }
 
             return false;
+        }
+        // new embeded code 
+        // view patient by name 
+        public PatientModel GetPatientByName(string name)
+        {
+            List<PatientModel> patients = repo.GetPatientsFromFile();
+
+            foreach (PatientModel patient in patients)
+            {
+                if (patient.GetName() == name)
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+        }
+        
+        public PatientModel Searchbycategory(string medicalhistory)
+        {
+            List<PatientModel> patients = repo.GetPatientsFromFile();
+            foreach (PatientModel patient in patients)
+            {
+                if (PatientModel.GetMedicalHistory() == medicalhistory)
+                {
+                    return patient;
+                }
+
+            }
+            return null;
+        }
+        public List<PatientModel> SortAllPatients(int age)
+        {
+            List<PatientModel> patients = repo.GetPatientsFromFile();
+            foreach (PatientModel patient in patients)
+            {
+                for (int i = 0; i < patients.Count; i++)
+                {
+                    for (int j = 0; j = patient - i - 1; j++)
+                    {
+                        if (patient[i]>= patient[j])
+                        {
+                            continue;
+                        }
+                        int temp = 0;
+                        patient[temp] = patient[i];
+                        patient[i] = patient[j];
+                        patient[j] = patienttemp[i];
+                    }
+                }
+
+                return patient[0] && patient[count - 1];
+            }
+            return null;
         }
     }
 }
